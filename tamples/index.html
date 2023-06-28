@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>House Price Prediction</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        /* Set the background image */
+        body {
+            background-image: url('https://th.bing.com/th/id/OIP.5cPRakAop6ITYq784MvCtQHaE7?pid=PersonalBing&rs=1');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style for the title */
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Style for the form */
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Style for the form labels */
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Style for the form inputs */
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Style for the form submit button */
+        .submit {
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Style for the predicted price */
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+    </style>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h1>House Price Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="City">City:</label>
+        <select name="City" id="City">
+            <option value="פתח תקווה">פתח תקווה</option>
+            <option value="נתניה">נתניה</option>
+            <option value="באר שבע">באר שבע</option>
+            <option value="הרצליה">הרצליה</option>
+            <option value="אריאל">אריאל</option>
+            <option value="דימונה">דימונה</option>
+            <option value="רחובות">רחובות</option>
+            <option value="גבעת שמואל">גבעת שמואל</option>
+            <option value="ירושלים">ירושלים</option>
+            <option value="שוהם">שוהם</option>
+            <option value="כפר סבא">כפר סבא</option>
+            <option value="רעננה">רעננה</option>
+            <option value="נהריה">נהריה</option>
+            <option value="זכרון יעקב">זכרון יעקב</option>
+            <option value="קרית ביאליק">קרית ביאליק</option>
+            <option value="חיפה">חיפה</option>
+            <option value="הוד השרון">הוד השרון</option>
+            <option value="תל אביב">תל אביב</option>
+            <option value="ראשון לציון">ראשון לציון</option>
+            <option value="יהוד מונוסון">יהוד מונוסון</option>
+            <option value="נס ציונה">נס ציונה</option>
+            <option value="אילת">אילת</option>
+            <option value="חולון">חולון</option>
+            <option value="מודיעין מכבים רעות">מודיעין מכבים רעות</option>
+            <option value="צפת">צפת</option>
+            <option value="בת ים">בת ים</option>
+            <option value="רמת גן">רמת גן</option>
+            <option value="נוף הגליל">נוף הגליל</option>
+            <option value="בית שאן">בית שאן</option>
+        </select><br><br>
+        <label for="type">type:</label>
+        <select name="type" id="type">
+            <option value="דירה">דירה</option>
+            <option value="בית פרטי">בית פרטי</option>
+            <option value="דירת גן">דירת גן</option>
+            <option value="דופלקס">דופלקס</option>
+            <option value="פנטהאוז">פנטהאוז</option>
+        </select><br><br>
+        <label for="condition">Condition:</label>
+        <select name="condition" id="condition">
+            <option value="משופץ">משופץ</option>
+            <option value="שמור">שמור</option>
+            <option value="חדש">חדש</option>
+            <option value="לא צויין">לא צויין</option>
+            <option value="ישן">ישן</option>
+        </select><br><br>
+        <label for="floor">Floor:</label><br>
+        <input type="number" id="floor" name="floor"><br>
+        <label for="Area">Area:</label><br>
+        <input type="number" id="Area" name="Area"><br>
+        <label for="hasElevator">Has Elevator:</label><br>
+        <input type="checkbox" id="hasElevator" name="hasElevator" value="1"><br>
+        <label for="hasParking">Has Parking:</label><br>
+        <input type="checkbox" id="hasParking" name="hasParking" value="1"><br>
+        <label for="hasBars">Has Bars:</label><br>
+        <input type="checkbox" id="hasBars" name="hasBars" value="1"><br>
+        <label for="hasStorage">Has Storage:</label><br>
+        <input type="checkbox" id="hasStorage" name="hasStorage" value="1"><br>
+        <label for="hasBalcony">Has Balcony:</label><br>
+        <input type="checkbox" id="hasBalcony" name="hasBalcony" value="1"><br>
+        <label for="hasMamad">Has Mamad:</label><br>
+        <input type="checkbox" id="hasMamad" name="hasMamad" value="1"><br>
+        <label for="handicapFriendly">Handicap Friendly:</label><br>
+        <input type="checkbox" id="handicapFriendly" name="handicapFriendly" value="1"><br>
+        <input type="submit" value="predict" class="submit">
+    </form>
+    <h2>Predicted Price: {{ price }}</h2>
+
+</body>
+</html>
